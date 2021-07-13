@@ -73,10 +73,10 @@ const config = {
     },
     controls: {
         autoRotate: false,
-        autoRotateSpeed: -0.5,
-        rotateSpeed: 0.5,
+        autoRotateSpeed: -1.5,
+        rotateSpeed: 1.5,
         zoomSpeed: 0.8,
-        minDistance: 200,
+        minDistance: 100,
         maxDistance: 800,
         minPolarAngle: 0 /*Math.PI / 6,*/,
         maxPolarAngle: (7 / 16) * Math.PI,
