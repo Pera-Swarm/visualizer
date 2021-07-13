@@ -31,7 +31,6 @@ export default class DatGUI {
                 saveConfig(Config);
             });
 
-
         /* Labels Folder */
         const labelsFolder = this.gui.addFolder('Labels');
         labelsFolder
@@ -83,7 +82,7 @@ export default class DatGUI {
             .add(Config.controls, 'autoRotate')
             .name('Auto Rotate')
             .listen()
-            .onChange((value)=>{
+            .onChange((value) => {
                 // alert('Toggle AutoRotate');
                 Config.controls.autoRotate = value;
                 saveConfig(Config);
@@ -107,7 +106,6 @@ export default class DatGUI {
         // this.model = main.model;
         // this.meshHelper = main.meshHelper;
     }
-
 
     toggleLabels(objects, type, value) {
         saveConfig(Config);
