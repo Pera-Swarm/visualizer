@@ -30,6 +30,7 @@ export default class DatGUI {
                 Config.isShowingRobotSnapshots = value;
                 saveConfig(Config);
             });
+
         /* Labels Folder */
         const labelsFolder = this.gui.addFolder('Labels');
         // labelsFolder
@@ -75,6 +76,29 @@ export default class DatGUI {
                 this.toggleReality('virtual', 'V');
             });
 
+        // Other
+        const otherFolder = this.gui.addFolder('Other');
+        otherFolder
+            .add(Config.controls, 'autoRotate')
+            .name('Auto Rotate')
+            .listen()
+            .onChange((value) => {
+                // alert('Toggle AutoRotate');
+                Config.controls.autoRotate = value;
+                saveConfig(Config);
+                location.reload();
+            });
+        otherFolder
+            .add(Config.controls, 'autoRotateSpeed')
+            .min(-5)
+            .max(5)
+            .name('Auto Rotate Speed')
+            .listen()
+            .onChange((value) => {
+                Config.controls.autoRotateSpeed = value;
+                saveConfig(Config);
+                // location.reload();
+            });
         /* Global */
         // this.gui.open();
         this.gui.close();

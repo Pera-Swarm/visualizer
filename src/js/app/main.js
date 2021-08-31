@@ -72,6 +72,7 @@ export default class Main {
         this.controls = new Controls(camera.threeCamera, container);
         this.light = new Light(this.scene);
         this.camera = camera;
+
         // Create and place lights in scene
         const lights = ['ambient', 'directional', 'point', 'hemi'];
         lights.forEach((light) => this.light.place(light));
