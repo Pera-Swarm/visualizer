@@ -47,8 +47,8 @@ export default class MQTTClient {
         this.robot = new Robot(scene);
         this.obstacles = new Obstacle(scene);
 
-        this.updateChannel();
         const credentials = getCredentials();
+        this.updateChannel();
 
         if (credentials === -1) {
             alert('Unauthorized access! The Visualizer will not work properly.');
@@ -59,6 +59,7 @@ export default class MQTTClient {
             this.client = new MQTT.Client(Config.mqtt.server, Config.mqtt.port, Config.mqtt.path, client_id);
 
             window.mqtt = this.client;
+            window.channel = credentials.channel === undefined ? 'v1' : credentials.channel;
 
             this.client.connect({
                 userName: username,
@@ -107,15 +108,15 @@ export default class MQTTClient {
     }
 
     updateChannel() {
-        const channelHash = window.location.hash;
-        if ((channelHash != '') & (channelHash.length > 1)) {
-            // window.channel = channelHash.substring(1);
-            window.channel = channelHash.split('#')[1].split('?')[0];
-        } else {
-            window.channel = Config.mqtt.channel;
-        }
-        console.log('MQTT: channel=', window.channel, channelHash);
-        return true;
+        // const channelHash = window.location.hash;
+        // if ((channelHash != '') & (channelHash.length > 1)) {
+        //     // window.channel = channelHash.substring(1);
+        //     window.channel = channelHash.split('#')[1].split('?')[0];
+        // } else {
+        //     window.channel = Config.mqtt.channel;
+        // }
+        // console.log('MQTT: channel=', window.channel, channelHash);
+        // return true;
     }
 
     onConnectionLost(responseObject) {
@@ -245,7 +246,7 @@ export default class MQTTClient {
                     subElement;
                 const disp = document.querySelector('#msg-box');
                 const prevContent = document.getElementById('msg-content');
-                let content = document.createElement('div');
+                const content = document.createElement('div');
                 content.setAttribute('id', 'msg-content');
                 const titleElement = document.createElement('h3');
                 titleElement.textContent = `Robot [${snapshot.id}] Snapshot`;
