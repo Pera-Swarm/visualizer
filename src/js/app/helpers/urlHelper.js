@@ -73,7 +73,7 @@ export function getCredentials() {
     } else if (username !== false && password !== false) {
         // Having URL parameters
         console.log('Credentails: Loaded from URL parameters');
-        localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password }));
+        localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password, channel }));
         return {
             username,
             password,
