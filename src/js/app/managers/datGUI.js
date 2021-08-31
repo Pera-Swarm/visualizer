@@ -32,17 +32,17 @@ export default class DatGUI {
             });
         /* Labels Folder */
         const labelsFolder = this.gui.addFolder('Labels');
-        labelsFolder
-            .add(Config, 'isShowingLables')
-            .name('All Labels')
-            .onChange((value) => {
-                Config.isShowingLables = value;
-                Config.labelsVisibility = {
-                    obstacles: value,
-                    robots: value
-                };
-                saveConfig(Config);
-            });
+        // labelsFolder
+        //     .add(Config, 'isShowingLables')
+        //     .name('All Labels')
+        //     .onChange((value) => {
+        //         Config.isShowingLables = value;
+        //         Config.labelsVisibility = {
+        //             obstacles: value,
+        //             robots: value
+        //         };
+        //         saveConfig(Config);
+        //     });
 
         labelsFolder
             .add(Config.labelsVisibility, 'obstacles')
