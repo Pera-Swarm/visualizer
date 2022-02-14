@@ -60,7 +60,7 @@ const config = {
     },
     fog: {
         color: 0xffffff,
-        near: 0.0008
+        near: 0.00025
     },
     camera: {
         fov: 50,
