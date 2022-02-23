@@ -6,11 +6,11 @@ let resolvedConfig;
 const config = {
     scale: 1,
     arena: {
-        size: 600,
-        minX: -300,
-        maxX: 300,
-        minY: -300,
-        maxY: 300
+        size: 180,
+        minX: -90,
+        maxX: 90,
+        minY: -90,
+        maxY: 90
     },
     mqtt: {
         server: localStorage.getItem('pera-swarm-server') || 'webservices.ceykod.com',
