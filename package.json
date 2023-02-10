@@ -47,7 +47,7 @@
       "gh-pages": "^3.1.0",
       "html-webpack-plugin": "^4.3.0",
       "mini-css-extract-plugin": "^0.9.0",
-      "node-sass": "^4.14.1",
+      "node-sass": "^7.0.0",
       "npm-run-all": "^4.1.5",
       "optimize-css-assets-webpack-plugin": "^5.0.3",
       "postcss-loader": "^3.0.0",
@@ -65,11 +65,11 @@
       "copy-webpack-plugin": "^6.2.1",
       "es6-promise": "^4.2.8",
       "jquery": "^3.5.1",
-      "jsonwebtoken": "^8.5.1",
+      "jsonwebtoken": "^9.0.0",
       "mqtt": "^4.2.8",
       "paho-mqtt": "^1.1.0",
       "prettier": "^2.2.1",
-      "three": "^0.126.0",
+      "three": "^0.137.0",
       "three-stl-loader": "^1.0.6",
       "update": "^0.7.4"
    }
