@@ -1,5 +1,3 @@
-const jwt = require('jsonwebtoken');
-
 function getUrlVars() {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -105,15 +103,4 @@ function parseJwt(token) {
 function clearParams() {
     const path = window.location.origin + window.location.pathname;
     window.history.pushState({}, document.title, path);
-}
-
-function decodeKey() {
-    try {
-        const decoded = jwt.verify(token, 'swarm-visualizer-secret');
-        return decoded;
-    } catch (err) {
-        // err
-        console.log('Token Error');
-        return -1;
-    }
 }

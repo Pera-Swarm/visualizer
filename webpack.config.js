@@ -1,12 +1,10 @@
 // Global imports
 const webpack = require('webpack');
 const path = require('path');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 // Paths
 const entry = './src/js/app.js';
@@ -14,10 +12,11 @@ const includePath = path.join(__dirname, 'src/js');
 const nodeModulesPath = path.join(__dirname, 'node_modules');
 
 let outputPath = path.join(__dirname, 'src/public/js');
+let publicPath = '/js/';
 
 module.exports = (env) => {
     // Dev environment
-    let devtool = 'eval';
+    let devtool = 'inline-source-map';
     let mode = 'development';
     let stats = 'minimal';
     let plugins = [
@@ -32,6 +31,7 @@ module.exports = (env) => {
         mode = 'production';
         stats = 'none';
         outputPath = `${__dirname}/build/js`;
+        publicPath = 'js/';
     }
 
     console.log('Webpack build -');
@@ -51,9 +51,10 @@ module.exports = (env) => {
             // must be an absolute path (use the Node.js path module)
             path: outputPath,
             // the url to the output directory resolved relative to the HTML page
-            publicPath: 'js',
+            publicPath,
             // the filename template for entry chunks
-            filename: 'app.js'
+            filename: '[name].bundle.js',
+            chunkFilename: '[name].bundle.js'
         },
 
         // Webpack 4 mode helper
@@ -62,15 +63,6 @@ module.exports = (env) => {
         // configuration regarding modules
         module: {
             // rules for modules (configure loaders, parser options, etc.)
-
-            rules: [
-                {
-                    test: /\.js$/,
-                    enforce: 'pre',
-                    use: ['source-map-loader']
-                }
-            ],
-
             rules: [
                 {
                     // these are matching conditions, each accepting a regular expression or string
@@ -125,12 +117,19 @@ module.exports = (env) => {
 
         // lets you precisely control what bundle information gets displayed
         stats,
+
         // enhance debugging by adding meta info for the browser devtools
         // source-map most detailed at the expense of build speed.
         devtool,
 
         devServer: {
-            contentBase: 'src/public'
+            static: 'src/public',
+            client: {
+                overlay: {
+                    errors: true,
+                    warnings: false
+                }
+            }
         },
 
         plugins: plugins.concat(
@@ -143,25 +142,12 @@ module.exports = (env) => {
             new MiniCssExtractPlugin({
                 filename: '../css/[name].css',
                 chunkFilename: '../css/[id].css'
-            }),
-            new CopyPlugin({
-                patterns: [
-                    { from: 'node_modules/three/examples/js/libs/stats.min.js' },
-                    { from: 'node_modules/three/examples/js/libs/dat.gui.min.js' },
-                    { from: 'src/public/assets/favicon.ico', to: '../favicon.ico' }
-                ]
             })
         ),
 
         optimization: {
-            minimizer: [
-                new TerserPlugin({
-                    cache: true,
-                    parallel: true,
-                    sourceMap: true // set to true if you want JS source maps
-                }),
-                new OptimizeCSSAssetsPlugin({})
-            ],
+            minimize: true,
+            minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
             runtimeChunk: 'single',
             splitChunks: {
                 cacheGroups: {
