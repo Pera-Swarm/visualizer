@@ -7,10 +7,10 @@ const config = {
     scale: 1,
     arena: {
         size: 180,
-        minX: -85,
-        maxX: 85,
-        minY: -85,
-        maxY: 85
+        minX: -90,
+        maxX: 90,
+        minY: -90,
+        maxY: 90
     },
     mqtt: {
         server: localStorage.getItem('pera-swarm-server') || 'webservices.ceykod.com',
@@ -60,7 +60,7 @@ const config = {
     },
     fog: {
         color: 0xffffff,
-        near: 0.0008
+        near: 0.00025
     },
     camera: {
         fov: 50,
