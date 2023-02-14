@@ -62,8 +62,6 @@
 
 /*! es6-promise */
 
-/*! jsonwebtoken */
-
 /*! paho-mqtt */
 
 /*! three */

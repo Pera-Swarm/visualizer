@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 function getUrlVars() {
     var vars = {};
@@ -53,17 +53,17 @@ export function getCredentials() {
         // Default: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJjcmVhdGVkQXQiOiIyMDIxLTA0LTE1IDEyOjU0OjI0IiwiZXhwaXJlZEF0IjoiMjAyMS0wNC0xNSAwMTo1NDoyNCIsImhvc3QiOiJ3ZWJzZXJ2aWNlcy5jZXlrb2QuY29tIiwicG9ydCI6ODg4MywicGF0aCI6IlwvbXF0dCIsImNoYW5uZWwiOiJ2MSIsInVzZXIiOiJzd2FybV91c2VyIiwicGFzcyI6InN3YXJtX3VzZXJlMTUifQ.F1jqHyu1jE0zTa03yYTwwdy8AJofBLXWLvYMYLNlna6dUjTkz6WdtwjBcrF_zDARM95r67RykOiWJCHDiWM52MQFx3EivqTYUNnA5fyNfsdJgrBR0q7eESM28MTSFoxnVi7memIKCSnkju3qDRZuZZdB5jaLP2BYg7ipgEFzt7E
         console.log('Credentails: Loaded from JWT');
 
-        const credentials = parseJwt(key);
-        const username = credentials.user;
-        const password = credentials.pass;
-        const channel = credentials.channel;
+        // const credentials = parseJwt(key);
+        const username = ''; //credentials.user;
+        const password = ''; //credentials.pass;
+        const channel = ''; //credentials.channel;
 
-        if (credentials.host !== undefined) localStorage.setItem('pera-swarm-server', credentials.host);
-        if (credentials.port !== undefined) localStorage.setItem('pera-swarm-port', parseInt(credentials.port));
-        if (credentials.path !== undefined) localStorage.setItem('pera-swarm-path', credentials.path);
-        if (credentials.channel !== undefined) localStorage.setItem('pera-swarm-channel', credentials.channel);
+        // if (credentials.host !== undefined) localStorage.setItem('pera-swarm-server', credentials.host);
+        // if (credentials.port !== undefined) localStorage.setItem('pera-swarm-port', parseInt(credentials.port));
+        // if (credentials.path !== undefined) localStorage.setItem('pera-swarm-path', credentials.path);
+        // if (credentials.channel !== undefined) localStorage.setItem('pera-swarm-channel', credentials.channel);
 
-        localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password, channel }));
+        // localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password, channel }));
 
         return {
             username,
