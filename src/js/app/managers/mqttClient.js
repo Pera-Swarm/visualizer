@@ -33,6 +33,8 @@ const TOPIC_OBSTACLES_DELETE_ALL = 'obstacles/delete/all';
 // Robot Color - NeoPixel
 const TOPIC_CHANGE_COLOR = 'output/neopixel';
 
+const TOPIC_ARENA_CONFIG = "config/arena/";
+
 // This will help to remote update the parameters in here
 const TOPIC_MANAGEMENT_VISUALIZER = 'mgt/visualizer';
 
@@ -277,6 +279,9 @@ export default class MQTTClient {
                     disp.style.display = 'none';
                 }, 6000);
             }
+        } else if (topic == TOPIC_ARENA_CONFIG){
+            const config = JSON.parse(msg);
+            console.log('Config:Arena', config);
         }
     }
 
