@@ -102,6 +102,9 @@ export default class Main {
 
             // Create the environment ---------------------------------------------
             this.environment = new Environment();
+        
+            // Access globally 
+            window.environment = this.environment;
 
             // -----------------------------------------------------------------
 
