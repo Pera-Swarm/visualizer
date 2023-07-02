@@ -1,8 +1,11 @@
 function getUrlVars() {
     var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = value;
-    });
+    var parts = window.location.href.replace(
+        /[?&]+([^=&]+)=([^&]*)/gi,
+        function (m, key, value) {
+            vars[key] = value;
+        }
+    );
     return vars;
 }
 
@@ -56,12 +59,19 @@ export function getCredentials() {
         const password = credentials.pass;
         const channel = credentials.channel;
 
-        if (credentials.host !== undefined) localStorage.setItem('pera-swarm-server', credentials.host);
-        if (credentials.port !== undefined) localStorage.setItem('pera-swarm-port', parseInt(credentials.port));
-        if (credentials.path !== undefined) localStorage.setItem('pera-swarm-path', credentials.path);
-        if (credentials.channel !== undefined) localStorage.setItem('pera-swarm-channel', credentials.channel);
+        if (credentials.host !== undefined)
+            localStorage.setItem('pera-swarm-server', credentials.host);
+        if (credentials.port !== undefined)
+            localStorage.setItem('pera-swarm-port', parseInt(credentials.port));
+        if (credentials.path !== undefined)
+            localStorage.setItem('pera-swarm-path', credentials.path);
+        if (credentials.channel !== undefined)
+            localStorage.setItem('pera-swarm-channel', credentials.channel);
 
-        localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password, channel }));
+        localStorage.setItem(
+            'pera-swarm-credentials',
+            JSON.stringify({ username, password, channel })
+        );
 
         return {
             username,
@@ -71,7 +81,10 @@ export function getCredentials() {
     } else if (username !== false && password !== false) {
         // Having URL parameters
         console.log('Credentails: Loaded from URL parameters');
-        localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password, channel }));
+        localStorage.setItem(
+            'pera-swarm-credentials',
+            JSON.stringify({ username, password, channel })
+        );
         return {
             username,
             password,

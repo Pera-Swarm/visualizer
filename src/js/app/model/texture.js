@@ -37,10 +37,18 @@ export default class Texture {
                             // Resolve Promise with object of texture if it is instance of THREE.Texture
                             const modelOBJ = {};
                             modelOBJ[imageFile.name] = texture;
-                            if (modelOBJ[imageFile.name] instanceof THREE.Texture) resolve(modelOBJ);
+                            if (modelOBJ[imageFile.name] instanceof THREE.Texture)
+                                resolve(modelOBJ);
                         },
                         Helpers.logProgress(),
-                        (xhr) => reject(new Error(xhr + 'An error occurred loading while loading ' + imageFile.image))
+                        (xhr) =>
+                            reject(
+                                new Error(
+                                    xhr +
+                                        'An error occurred loading while loading ' +
+                                        imageFile.image
+                                )
+                            )
                     );
                 })
             );
@@ -51,7 +59,8 @@ export default class Texture {
             (textures) => {
                 // Set the textures prop object to have name be the resolved texture
                 for (let i = 0; i < textures.length; i++) {
-                    this.textures[Object.keys(textures[i])[0]] = textures[i][Object.keys(textures[i])[0]];
+                    this.textures[Object.keys(textures[i])[0]] =
+                        textures[i][Object.keys(textures[i])[0]];
                 }
             },
             (reason) => console.log(reason)

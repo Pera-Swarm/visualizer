@@ -3,7 +3,14 @@
  * @author WestLangley / http://github.com/WestLangley
  */
 
-import { BufferGeometry, Float32BufferAttribute, LineSegments, LineBasicMaterial, Matrix3, Vector3 } from 'three';
+import {
+    BufferGeometry,
+    Float32BufferAttribute,
+    LineSegments,
+    LineBasicMaterial,
+    Matrix3,
+    Vector3
+} from 'three';
 
 const _v1 = new Vector3();
 const _v2 = new Vector3();
@@ -35,7 +42,11 @@ function VertexNormalsHelper(object, size, hex) {
 
     geometry.setAttribute('position', positions);
 
-    LineSegments.call(this, geometry, new LineBasicMaterial({ color: color, toneMapped: false }));
+    LineSegments.call(
+        this,
+        geometry,
+        new LineBasicMaterial({ color: color, toneMapped: false })
+    );
 
     this.type = 'VertexNormalsHelper';
 
@@ -77,7 +88,11 @@ VertexNormalsHelper.prototype.update = function () {
                 const normal = face.vertexNormals[j];
 
                 _v1.copy(vertex).applyMatrix4(matrixWorld);
-                _v2.copy(normal).applyMatrix3(_normalMatrix).normalize().multiplyScalar(this.size).add(_v1);
+                _v2.copy(normal)
+                    .applyMatrix3(_normalMatrix)
+                    .normalize()
+                    .multiplyScalar(this.size)
+                    .add(_v1);
 
                 position.setXYZ(idx, _v1.x, _v1.y, _v1.z);
 
@@ -97,9 +112,14 @@ VertexNormalsHelper.prototype.update = function () {
         // for simplicity, ignore index and drawcalls, and render every normal
 
         for (var j = 0, jl = objPos.count; j < jl; j++) {
-            _v1.set(objPos.getX(j), objPos.getY(j), objPos.getZ(j)).applyMatrix4(matrixWorld);
+            _v1.set(objPos.getX(j), objPos.getY(j), objPos.getZ(j)).applyMatrix4(
+                matrixWorld
+            );
             _v2.set(objNorm.getX(j), objNorm.getY(j), objNorm.getZ(j));
-            _v2.applyMatrix3(_normalMatrix).normalize().multiplyScalar(this.size).add(_v1);
+            _v2.applyMatrix3(_normalMatrix)
+                .normalize()
+                .multiplyScalar(this.size)
+                .add(_v1);
 
             position.setXYZ(idx, _v1.x, _v1.y, _v1.z);
 

@@ -102,8 +102,8 @@ export default class Main {
 
             // Create the environment ---------------------------------------------
             this.environment = new Environment();
-        
-            // Access globally 
+
+            // Access globally
             window.environment = this.environment;
 
             // -----------------------------------------------------------------
@@ -174,12 +174,17 @@ export default class Main {
         const intersects = raycaster.intersectObjects(scene.children);
         if (intersects.length > 0) {
             const object = intersects[0].object;
-            if (INTERSECTED) INTERSECTED.material.setValues({ opacity: INTERSECTED.currentOpacity });
+            if (INTERSECTED)
+                INTERSECTED.material.setValues({ opacity: INTERSECTED.currentOpacity });
             INTERSECTED = object;
             selectedLabel = INTERSECTED.children[0];
             INTERSECTED.currentOpacity = INTERSECTED.material.opacity;
             INTERSECTED.labelsVisibility = INTERSECTED.material.labelVisibility;
-            if (selectedLabel !== undefined && selectedLabel.visible !== undefined && Config.isShowingLables) {
+            if (
+                selectedLabel !== undefined &&
+                selectedLabel.visible !== undefined &&
+                Config.isShowingLables
+            ) {
                 selectedLabel.visible = !selectedLabel.visible;
             }
             INTERSECTED.material.selected = !INTERSECTED.material.selected;
@@ -205,7 +210,8 @@ export default class Main {
                 }
             }
         } else {
-            if (INTERSECTED) INTERSECTED.material.setValues({ opacity: INTERSECTED.currentOpacity });
+            if (INTERSECTED)
+                INTERSECTED.material.setValues({ opacity: INTERSECTED.currentOpacity });
             INTERSECTED = null;
         }
     }
@@ -222,7 +228,10 @@ export default class Main {
         if (intersects.length > 0) {
             const object = intersects[0].object;
             if (INTERSECTED !== object) {
-                if (INTERSECTED) INTERSECTED.material.setValues({ opacity: INTERSECTED.currentOpacity });
+                if (INTERSECTED)
+                    INTERSECTED.material.setValues({
+                        opacity: INTERSECTED.currentOpacity
+                    });
                 INTERSECTED = object;
                 selectedLabel = INTERSECTED.children[0];
                 INTERSECTED.currentOpacity = INTERSECTED.material.opacity;
@@ -231,7 +240,10 @@ export default class Main {
             }
         } else {
             if (INTERSECTED)
-                INTERSECTED.material.setValues({ opacity: 1.0, color: INTERSECTED.material.userData.originalColor });
+                INTERSECTED.material.setValues({
+                    opacity: 1.0,
+                    color: INTERSECTED.material.userData.originalColor
+                });
             INTERSECTED = null;
         }
     }

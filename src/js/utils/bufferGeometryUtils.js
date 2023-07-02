@@ -42,7 +42,10 @@ var BufferGeometryUtils = {
         var nVertices = positions.length / 3;
 
         if (attributes.tangent === undefined) {
-            geometry.setAttribute('tangent', new BufferAttribute(new Float32Array(4 * nVertices), 4));
+            geometry.setAttribute(
+                'tangent',
+                new BufferAttribute(new Float32Array(4 * nVertices), 4)
+            );
         }
 
         var tangents = attributes.tangent.array;
@@ -85,8 +88,14 @@ var BufferGeometryUtils = {
 
             if (!isFinite(r)) return;
 
-            sdir.copy(vB).multiplyScalar(uvC.y).addScaledVector(vC, -uvB.y).multiplyScalar(r);
-            tdir.copy(vC).multiplyScalar(uvB.x).addScaledVector(vB, -uvC.x).multiplyScalar(r);
+            sdir.copy(vB)
+                .multiplyScalar(uvC.y)
+                .addScaledVector(vC, -uvB.y)
+                .multiplyScalar(r);
+            tdir.copy(vC)
+                .multiplyScalar(uvB.x)
+                .addScaledVector(vB, -uvC.x)
+                .multiplyScalar(r);
 
             tan1[a].add(sdir);
             tan1[b].add(sdir);
@@ -257,7 +266,8 @@ var BufferGeometryUtils = {
 
             // gather .userData
 
-            mergedGeometry.userData.mergedUserData = mergedGeometry.userData.mergedUserData || [];
+            mergedGeometry.userData.mergedUserData =
+                mergedGeometry.userData.mergedUserData || [];
             mergedGeometry.userData.mergedUserData.push(geometry.userData);
 
             if (useGroups) {
@@ -335,7 +345,8 @@ var BufferGeometryUtils = {
                     morphAttributesToMerge.push(morphAttributes[name][j][i]);
                 }
 
-                var mergedMorphAttribute = this.mergeBufferAttributes(morphAttributesToMerge);
+                var mergedMorphAttribute =
+                    this.mergeBufferAttributes(morphAttributesToMerge);
 
                 if (!mergedMorphAttribute) {
                     console.error(
@@ -429,7 +440,9 @@ var BufferGeometryUtils = {
 
             if (TypedArray === undefined) TypedArray = attribute.array.constructor;
             if (TypedArray !== attribute.array.constructor) {
-                console.error('AttributeBuffers of different types cannot be interleaved');
+                console.error(
+                    'AttributeBuffers of different types cannot be interleaved'
+                );
                 return null;
             }
 
@@ -438,7 +451,10 @@ var BufferGeometryUtils = {
         }
 
         // Create the set of buffer attributes
-        var interleavedBuffer = new InterleavedBuffer(new TypedArray(arrayLength), stride);
+        var interleavedBuffer = new InterleavedBuffer(
+            new TypedArray(arrayLength),
+            stride
+        );
         var offset = 0;
         var res = [];
         var getters = ['getX', 'getY', 'getZ', 'getW'];
@@ -448,7 +464,12 @@ var BufferGeometryUtils = {
             var attribute = attributes[j];
             var itemSize = attribute.itemSize;
             var count = attribute.count;
-            var iba = new InterleavedBufferAttribute(interleavedBuffer, itemSize, offset, attribute.normalized);
+            var iba = new InterleavedBufferAttribute(
+                interleavedBuffer,
+                itemSize,
+                offset,
+                attribute.normalized
+            );
             res.push(iba);
 
             offset += itemSize;
@@ -480,7 +501,9 @@ var BufferGeometryUtils = {
         }
 
         var indices = geometry.getIndex();
-        mem += indices ? indices.count * indices.itemSize * indices.array.BYTES_PER_ELEMENT : 0;
+        mem += indices
+            ? indices.count * indices.itemSize * indices.array.BYTES_PER_ELEMENT
+            : 0;
         return mem;
     },
 
@@ -580,7 +603,11 @@ var BufferGeometryUtils = {
             var oldAttribute = geometry.getAttribute(name);
 
             var buffer = new oldAttribute.array.constructor(attrArrays[name]);
-            var attribute = new BufferAttribute(buffer, oldAttribute.itemSize, oldAttribute.normalized);
+            var attribute = new BufferAttribute(
+                buffer,
+                oldAttribute.itemSize,
+                oldAttribute.normalized
+            );
 
             result.setAttribute(name, attribute);
 
@@ -589,7 +616,9 @@ var BufferGeometryUtils = {
                 for (var j = 0; j < morphAttrsArrays[name].length; j++) {
                     var oldMorphAttribute = geometry.morphAttributes[name][j];
 
-                    var buffer = new oldMorphAttribute.array.constructor(morphAttrsArrays[name][j]);
+                    var buffer = new oldMorphAttribute.array.constructor(
+                        morphAttrsArrays[name][j]
+                    );
                     var morphAttribute = new BufferAttribute(
                         buffer,
                         oldMorphAttribute.itemSize,
@@ -614,7 +643,9 @@ var BufferGeometryUtils = {
      */
     toTrianglesDrawMode: function (geometry, drawMode) {
         if (drawMode === TrianglesDrawMode) {
-            console.warn('THREE.BufferGeometryUtils.toTrianglesDrawMode(): Geometry already defined as triangles.');
+            console.warn(
+                'THREE.BufferGeometryUtils.toTrianglesDrawMode(): Geometry already defined as triangles.'
+            );
             return geometry;
         }
 
@@ -687,7 +718,10 @@ var BufferGeometryUtils = {
             return newGeometry;
         }
 
-        console.error('THREE.BufferGeometryUtils.toTrianglesDrawMode(): Unknown draw mode:', drawMode);
+        console.error(
+            'THREE.BufferGeometryUtils.toTrianglesDrawMode(): Unknown draw mode:',
+            drawMode
+        );
         return geometry;
     }
 };
