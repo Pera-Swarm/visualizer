@@ -2,7 +2,10 @@ name: Code Formatting
 on:
   pull_request:
     branches: [main]
-    
+  
+  # Enables a button on Actions tab
+  workflow_dispatch:
+
 jobs:
   format:
     runs-on: ubuntu-latest
