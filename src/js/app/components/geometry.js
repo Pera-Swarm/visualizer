@@ -13,13 +13,22 @@ export default class Geometry {
     make(type) {
         if (type === 'plane') {
             return (width, height, widthSegments = 1, heightSegments = 1) => {
-                this.geo = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
+                this.geo = new THREE.PlaneGeometry(
+                    width,
+                    height,
+                    widthSegments,
+                    heightSegments
+                );
             };
         }
 
         if (type === 'sphere') {
             return (radius, widthSegments = 32, heightSegments = 32) => {
-                this.geo = new THREE.SphereGeometry(radius, widthSegments, heightSegments);
+                this.geo = new THREE.SphereGeometry(
+                    radius,
+                    widthSegments,
+                    heightSegments
+                );
             };
         }
     }

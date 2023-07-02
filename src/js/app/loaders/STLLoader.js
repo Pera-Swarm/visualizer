@@ -188,8 +188,14 @@ STLLoader.prototype = Object.assign(Object.create(Loader.prototype), {
             var faceCounter = 0;
 
             var patternFloat = /[\s]+([+-]?(?:\d*)(?:\.\d*)?(?:[eE][+-]?\d+)?)/.source;
-            var patternVertex = new RegExp('vertex' + patternFloat + patternFloat + patternFloat, 'g');
-            var patternNormal = new RegExp('normal' + patternFloat + patternFloat + patternFloat, 'g');
+            var patternVertex = new RegExp(
+                'vertex' + patternFloat + patternFloat + patternFloat,
+                'g'
+            );
+            var patternNormal = new RegExp(
+                'normal' + patternFloat + patternFloat + patternFloat,
+                'g'
+            );
 
             var vertices = [];
             var normals = [];
@@ -221,7 +227,11 @@ STLLoader.prototype = Object.assign(Object.create(Loader.prototype), {
                     }
 
                     while ((result = patternVertex.exec(text)) !== null) {
-                        vertices.push(parseFloat(result[1]), parseFloat(result[2]), parseFloat(result[3]));
+                        vertices.push(
+                            parseFloat(result[1]),
+                            parseFloat(result[2]),
+                            parseFloat(result[3])
+                        );
                         normals.push(normal.x, normal.y, normal.z);
                         vertexCountPerFace++;
                         endVertex++;
@@ -231,7 +241,8 @@ STLLoader.prototype = Object.assign(Object.create(Loader.prototype), {
 
                     if (normalCountPerFace !== 1) {
                         console.error(
-                            "THREE.STLLoader: Something isn't right with the normal of face number " + faceCounter
+                            "THREE.STLLoader: Something isn't right with the normal of face number " +
+                                faceCounter
                         );
                     }
 
@@ -239,7 +250,8 @@ STLLoader.prototype = Object.assign(Object.create(Loader.prototype), {
 
                     if (vertexCountPerFace !== 3) {
                         console.error(
-                            "THREE.STLLoader: Something isn't right with the vertices of face number " + faceCounter
+                            "THREE.STLLoader: Something isn't right with the vertices of face number " +
+                                faceCounter
                         );
                     }
 

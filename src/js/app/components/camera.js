@@ -15,7 +15,11 @@ export default class Camera {
             Config.camera.near,
             Config.camera.far
         );
-        this.threeCamera.position.set(Config.camera.posX, Config.camera.posY, Config.camera.posZ);
+        this.threeCamera.position.set(
+            Config.camera.posX,
+            Config.camera.posY,
+            Config.camera.posZ
+        );
         this.threeCamera.up.set(0, 0, 1);
 
         // Initial sizing

@@ -23,8 +23,16 @@ export default class Interaction {
             (event) => Helpers.throttle(this.onMouseMove(event), 250),
             false
         );
-        this.renderer.domElement.addEventListener('mouseleave', (event) => this.onMouseLeave(event), false);
-        this.renderer.domElement.addEventListener('mouseover', (event) => this.onMouseOver(event), false);
+        this.renderer.domElement.addEventListener(
+            'mouseleave',
+            (event) => this.onMouseLeave(event),
+            false
+        );
+        this.renderer.domElement.addEventListener(
+            'mouseover',
+            (event) => this.onMouseOver(event),
+            false
+        );
 
         // Keyboard events
         this.keyboard.domElement.addEventListener('keydown', (event) => {
