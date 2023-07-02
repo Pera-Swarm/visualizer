@@ -19,7 +19,8 @@
       "build:dir": "copyfiles -a -u 2 src/public/assets/**/*.* build/",
       "build:js": "webpack --env NODE_ENV=prod --progress --color",
       "predeploy": "npm run build",
-      "deploy": "gh-pages -d build"
+      "deploy": "gh-pages -d build",
+      "format": "prettier --write \"**/*.+(ts|js|jsx|json|yml|yaml|css|md)\""
    },
    "repository": {
       "type": "git",
