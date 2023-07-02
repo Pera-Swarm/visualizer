@@ -7,6 +7,4 @@ node_modules
 gh-pages-actions
 gh-pages-actions.pub
 
-src/public/js/app.js
-src/public/js/main.app.js
-src/public/js/vendors.app.js
+src/public/js/
