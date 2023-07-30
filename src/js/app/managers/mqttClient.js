@@ -53,7 +53,13 @@ export default class MQTTClient {
         this.updateChannel();
 
         if (credentials === -1) {
-            alert('Unauthorized access! The Visualizer will not work properly.');
+            // eslint-disable-next-line no-alert
+            alert(
+                'Unauthorized access! The Visualizer will not work properly. You will be redirected to Sign-in'
+            );
+            const currentURL = window.location.href;
+            const rdURL = `https://pera-swarm.ce.pdn.ac.lk/login/?rd=${currentURL}`;
+            window.location.replace(rdURL);
         } else {
             const { username, password } = credentials;
             // create a random client Id
