@@ -50,7 +50,6 @@ export default class MQTTClient {
         this.obstacles = new Obstacle(scene);
 
         const credentials = getCredentials();
-        this.updateChannel();
 
         if (credentials === -1) {
             // eslint-disable-next-line no-alert
@@ -63,12 +62,12 @@ export default class MQTTClient {
         } else {
             const { username, password } = credentials;
             // create a random client Id
-            const client_id = 'client_' + Math.random().toString(36).substring(2, 15);
+            const clientId = 'client_' + Math.random().toString(36).substring(2, 15);
             this.client = new MQTT.Client(
                 Config.mqtt.server,
                 Config.mqtt.port,
                 Config.mqtt.path,
-                client_id
+                clientId
             );
 
             window.mqtt = this.client;
@@ -120,18 +119,6 @@ export default class MQTTClient {
                 }
             });
         }
-    }
-
-    updateChannel() {
-        // const channelHash = window.location.hash;
-        // if ((channelHash != '') & (channelHash.length > 1)) {
-        //     // window.channel = channelHash.substring(1);
-        //     window.channel = channelHash.split('#')[1].split('?')[0];
-        // } else {
-        //     window.channel = Config.mqtt.channel;
-        // }
-        // console.log('MQTT: channel=', window.channel, channelHash);
-        // return true;
     }
 
     onConnectionLost(responseObject) {
