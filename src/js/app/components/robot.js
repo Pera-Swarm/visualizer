@@ -26,15 +26,37 @@ export default class Robot {
     }
 
     changeColor(id, R, G, B, ambient, callback) {
-        var r = this.scene.getObjectByName(ROBOT_PREFIX + id);
-        if (r != undefined) {
-            r.material.color.setRGB(R / 256, G / 256, B / 265);
-            //console.log("Color> id:", id, " | R:", R, "G:", G, "B:", B);
+        var robot = this.scene.getObjectByName(ROBOT_PREFIX + id);
+        if (robot != undefined) {
+            var i = 0;
+            const startColor = {
+                r: robot.material.color.r,
+                g: robot.material.color.g,
+                b: robot.material.color.b
+            };
+            const endColor = {
+                r: R / 256,
+                g: G / 256,
+                b: B / 256
+            };
+            const steps = 10;
+            const interval = 500;
 
-            if (callback != null) callback('success');
+            const intervalId = setInterval(function () {
+                const pos = i / steps;
+                robot.material.color.setRGB(
+                    (1 - pos) * startColor.r + pos * endColor.r,
+                    (1 - pos) * startColor.g + pos * endColor.g,
+                    (1 - pos) * startColor.b + pos * endColor.b
+                );
+                i++;
+                if (i === steps) {
+                    clearInterval(intervalId);
+                    if (callback != null) callback('success');
+                }
+            }, interval / steps);
         } else if (callback != null) callback('undefined');
-
-        return r;
+        return robot;
     }
 
     create(id, x, y, heading, reality = 'V', callback) {

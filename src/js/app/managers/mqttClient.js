@@ -177,7 +177,7 @@ export default class MQTTClient {
                             }
                         } else {
                             // reality not matching; remove
-                            robot.delete(id);
+                            window.robot.delete(id);
                         }
                     }
                 }
