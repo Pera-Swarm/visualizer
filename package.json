@@ -1,6 +1,6 @@
 {
    "name": "pera-swarm-visualizer",
-   "version": "1.0.0",
+   "version": "1.1.0",
    "description": "The GUI visualizor for Pera Swarm Project",
    "private": "false",
    "main": "app.js",
