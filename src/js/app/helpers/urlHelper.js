@@ -1,50 +1,28 @@
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = value;
-    });
-    return vars;
-}
-
-function getUrlParam(parameter, defaultvalue) {
-    var urlparameter = defaultvalue;
-    if (window.location.href.indexOf(parameter) > -1) {
-        urlparameter = getUrlVars()[parameter];
-    }
-    return urlparameter;
-}
-
 export function getCredentials() {
     // TODO: Add channel, host and port into URL (as optional parameters)
     // Suggestion: Use JWT insted of exposed credentials
     // Simulator server can provide the JWT token
     const storedCredentials = localStorage.getItem('pera-swarm-credentials');
-    const key = getUrlParam('key', false);
+    const params = new URLSearchParams(location.search);
+    const key = params.get('key');
 
-    const username = getUrlParam('username', false);
-    const password = getUrlParam('password', false);
-    const channel = getUrlParam('channel', false);
-    const port = getUrlParam('port', false);
-    const server = getUrlParam('server', false);
-    clearParams();
-
-    setTimeout(() => {
-        if (server !== false) {
-            localStorage.setItem('pera-swarm-server', server);
-        }
-        if (channel !== false) {
-            localStorage.setItem('pera-swarm-channel', channel);
-        }
-        if (port !== false) {
-            localStorage.setItem('pera-swarm-port', port);
-        }
-        if (key !== false) {
-            localStorage.setItem('pera-swarm-key', key);
-        }
-    }, 2000);
+    // setTimeout(() => {
+    //     if (server !== false) {
+    //         localStorage.setItem('pera-swarm-server', server);
+    //     }
+    //     if (channel !== false) {
+    //         localStorage.setItem('pera-swarm-channel', channel);
+    //     }
+    //     if (port !== false) {
+    //         localStorage.setItem('pera-swarm-port', port);
+    //     }
+    //     if (key !== false) {
+    //         localStorage.setItem('pera-swarm-key', key);
+    //     }
+    // }, 2000);
 
     // Load the credentails
-    if (key !== false) {
+    if (key != undefined) {
         // Having JWT Token
         // TODO: manage token expiring
 
@@ -56,28 +34,28 @@ export function getCredentials() {
         const password = credentials.pass;
         const channel = credentials.channel;
 
-        if (credentials.host !== undefined) localStorage.setItem('pera-swarm-server', credentials.host);
-        if (credentials.port !== undefined) localStorage.setItem('pera-swarm-port', parseInt(credentials.port));
-        if (credentials.path !== undefined) localStorage.setItem('pera-swarm-path', credentials.path);
-        if (credentials.channel !== undefined) localStorage.setItem('pera-swarm-channel', credentials.channel);
+        if (credentials.host !== undefined)
+            localStorage.setItem('pera-swarm-server', credentials.host);
+        if (credentials.port !== undefined)
+            localStorage.setItem('pera-swarm-port', parseInt(credentials.port));
+        if (credentials.path !== undefined)
+            localStorage.setItem('pera-swarm-path', credentials.path);
+        if (credentials.channel !== undefined)
+            localStorage.setItem('pera-swarm-channel', credentials.channel);
 
-        localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password, channel }));
+        localStorage.setItem(
+            'pera-swarm-credentials',
+            JSON.stringify({ username, password, channel })
+        );
+        window.location.href =
+            window.location.origin + window.location.pathname.replace('//', '/');
 
         return {
             username,
             password,
             channel
         };
-    } else if (username !== false && password !== false) {
-        // Having URL parameters
-        console.log('Credentails: Loaded from URL parameters');
-        localStorage.setItem('pera-swarm-credentials', JSON.stringify({ username, password, channel }));
-        return {
-            username,
-            password,
-            channel
-        };
-    } else if (username === false && password === false && storedCredentials !== null) {
+    } else if (storedCredentials !== null) {
         // Having stored credentials
         console.log('Credentails: Loaded from local storage');
         return JSON.parse(storedCredentials);
@@ -98,9 +76,4 @@ function parseJwt(token) {
     );
 
     return JSON.parse(jsonPayload);
-}
-
-function clearParams() {
-    const path = window.location.origin + window.location.pathname;
-    window.history.pushState({}, document.title, path);
 }

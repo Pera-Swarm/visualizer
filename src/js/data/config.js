@@ -138,11 +138,17 @@ const config = {
 
 // Check localstorage for updated config, if not use above config
 const storedConfig = localStorage.getItem(document.location.href + '.config');
-resolvedConfig = storedConfig !== null && storedConfig !== undefined ? JSON.parse(storedConfig) : config;
+resolvedConfig =
+    storedConfig !== null && storedConfig !== undefined
+        ? JSON.parse(storedConfig)
+        : config;
 
 // method to presist config data with localStorage
 export const saveConfig = (data) => {
-    localStorage.setItem(document.location.href + '.config', JSON.stringify({ ...config, ...data }));
+    localStorage.setItem(
+        document.location.href + '.config',
+        JSON.stringify({ ...config, ...data })
+    );
 };
 
 export default resolvedConfig;

@@ -21,7 +21,11 @@ export default class Light {
             Config.pointLight.intensity,
             Config.pointLight.distance
         );
-        this.pointLight.position.set(Config.pointLight.x, Config.pointLight.y, Config.pointLight.z);
+        this.pointLight.position.set(
+            Config.pointLight.x,
+            Config.pointLight.y,
+            Config.pointLight.z
+        );
         this.pointLight.visible = Config.pointLight.enabled;
 
         // Directional light
@@ -49,7 +53,9 @@ export default class Light {
         this.directionalLight.shadow.mapSize.height = Config.shadow.mapHeight;
 
         // Shadow camera helper
-        this.directionalLightHelper = new THREE.CameraHelper(this.directionalLight.shadow.camera);
+        this.directionalLightHelper = new THREE.CameraHelper(
+            this.directionalLight.shadow.camera
+        );
         this.directionalLightHelper.visible = Config.shadow.helperEnabled;
 
         // Hemisphere light
@@ -58,7 +64,11 @@ export default class Light {
             Config.hemiLight.groundColor,
             Config.hemiLight.intensity
         );
-        this.hemiLight.position.set(Config.hemiLight.x, Config.hemiLight.y, Config.hemiLight.z);
+        this.hemiLight.position.set(
+            Config.hemiLight.x,
+            Config.hemiLight.y,
+            Config.hemiLight.z
+        );
         this.hemiLight.visible = Config.hemiLight.enabled;
     }
 

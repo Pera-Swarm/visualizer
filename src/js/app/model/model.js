@@ -85,7 +85,9 @@ export default class Model {
                         this.obj = obj;
                         this.ref = obj;
 
-                        obj.scale.multiplyScalar(Config.models[Config.model.selected].scale);
+                        obj.scale.multiplyScalar(
+                            Config.models[Config.model.selected].scale
+                        );
                         this.scene.add(obj);
                     },
                     Helpers.logProgress(),

@@ -33,6 +33,8 @@ const TOPIC_OBSTACLES_DELETE_ALL = 'obstacles/delete/all';
 // Robot Color - NeoPixel
 const TOPIC_CHANGE_COLOR = 'output/neopixel';
 
+const TOPIC_ARENA_CONFIG = 'config/arena/';
+
 // This will help to remote update the parameters in here
 const TOPIC_MANAGEMENT_VISUALIZER = 'mgt/visualizer';
 
@@ -48,18 +50,29 @@ export default class MQTTClient {
         this.obstacles = new Obstacle(scene);
 
         const credentials = getCredentials();
-        this.updateChannel();
 
         if (credentials === -1) {
-            alert('Unauthorized access! The Visualizer will not work properly.');
+            // eslint-disable-next-line no-alert
+            alert(
+                'Unauthorized access! The Visualizer will not work properly. You will be redirected to Sign-in'
+            );
+            const currentURL = window.location.href;
+            const rdURL = `https://pera-swarm.ce.pdn.ac.lk/login/?rd=${currentURL}`;
+            window.location.replace(rdURL);
         } else {
             const { username, password } = credentials;
             // create a random client Id
-            const client_id = 'client_' + Math.random().toString(36).substring(2, 15);
-            this.client = new MQTT.Client(Config.mqtt.server, Config.mqtt.port, Config.mqtt.path, client_id);
+            const clientId = 'client_' + Math.random().toString(36).substring(2, 15);
+            this.client = new MQTT.Client(
+                Config.mqtt.server,
+                Config.mqtt.port,
+                Config.mqtt.path,
+                clientId
+            );
 
             window.mqtt = this.client;
-            window.channel = credentials.channel === undefined ? 'v1' : credentials.channel;
+            window.channel =
+                credentials.channel === undefined ? 'v1' : credentials.channel;
 
             this.client.connect({
                 userName: username,
@@ -83,6 +96,7 @@ export default class MQTTClient {
                     this.subscribe(TOPIC_OBSTACLES_DELETE);
                     this.subscribe(TOPIC_OBSTACLES_DELETE_ALL);
                     this.subscribe(TOPIC_MANAGEMENT_VISUALIZER);
+                    this.subscribe(TOPIC_ARENA_CONFIG);
                     this.subscribe(TOPIC_MANAGEMENT_SNAPSHOT);
 
                     // Request for obstacle data
@@ -105,18 +119,6 @@ export default class MQTTClient {
                 }
             });
         }
-    }
-
-    updateChannel() {
-        // const channelHash = window.location.hash;
-        // if ((channelHash != '') & (channelHash.length > 1)) {
-        //     // window.channel = channelHash.substring(1);
-        //     window.channel = channelHash.split('#')[1].split('?')[0];
-        // } else {
-        //     window.channel = Config.mqtt.channel;
-        // }
-        // console.log('MQTT: channel=', window.channel, channelHash);
-        // return true;
     }
 
     onConnectionLost(responseObject) {
@@ -147,7 +149,10 @@ export default class MQTTClient {
             } catch (e) {
                 console.error(e);
             }
-        } else if (topic == TOPIC_LOC_INFO_FROM_LOC_SYSTEMS || topic == TOPIC_LOC_INFO_FROM_SERVER) {
+        } else if (
+            topic == TOPIC_LOC_INFO_FROM_LOC_SYSTEMS ||
+            topic == TOPIC_LOC_INFO_FROM_SERVER
+        ) {
             //Data from the localization server or virtual robots
             try {
                 const data = JSON.parse(msg);
@@ -159,7 +164,8 @@ export default class MQTTClient {
                     // Have data on this reality
                     for (const i in data) {
                         const { id, x, y, heading } = data[i];
-                        const reality = data[i].reality == undefined ? 'V' : data[i].reality;
+                        const reality =
+                            data[i].reality == undefined ? 'V' : data[i].reality;
 
                         if (reality === REALITY || REALITY === 'M') {
                             // Create only if robots match with platform's allowed reality
@@ -171,7 +177,7 @@ export default class MQTTClient {
                             }
                         } else {
                             // reality not matching; remove
-                            robot.delete(id);
+                            window.robot.delete(id);
                         }
                     }
                 }
@@ -263,7 +269,9 @@ export default class MQTTClient {
                                 subElement.textContent = `${key}: ${value}`;
                             }
                         } else {
-                            subElement.textContent = `${variable}: ${JSON.stringify(snapshot[variable])}`;
+                            subElement.textContent = `${variable}: ${JSON.stringify(
+                                snapshot[variable]
+                            )}`;
                         }
                         content.appendChild(subElement);
                         i += 1;
@@ -276,6 +284,12 @@ export default class MQTTClient {
                     disp.style.opacity = '1.0';
                     disp.style.display = 'none';
                 }, 6000);
+            }
+        } else if (topic == TOPIC_ARENA_CONFIG) {
+            const config = JSON.parse(msg);
+            console.log('Config:Arena', config);
+            if (window.environment) {
+                window.environment.update(config);
             }
         }
     }

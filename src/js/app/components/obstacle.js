@@ -30,7 +30,8 @@ export default class Obstacle {
         const geometry = this.createGeometry(obstacle.geometry);
         const material = this.createMaterial(obstacle.material);
         material.userData.originalColor = new THREE.Color(0x666666);
-        material.userData.labelVisibility = Config.isShowingLables && Config.labelsVisibility.obstacles;
+        material.userData.labelVisibility =
+            Config.isShowingLables && Config.labelsVisibility.obstacles;
         material.userData.originalEmmisive = material.emissive.getHex();
         material.selected = false;
         material.transparent = true;
@@ -48,7 +49,9 @@ export default class Obstacle {
 
         if (mesh.reality === 'V') {
             // material.visible = Config.selectedRealities.virtual;
-            material.opacity = Config.selectedRealities.virtual ? 1.0 : Config.hiddenOpacity;
+            material.opacity = Config.selectedRealities.virtual
+                ? 1.0
+                : Config.hiddenOpacity;
         } else if (mesh.reality === 'R') {
             // material.visible = Config.selectedRealities.real;
             material.opacity = Config.selectedRealities.real ? 1.0 : Config.hiddenOpacity;
@@ -83,7 +86,12 @@ export default class Obstacle {
         if (Config.shadow.enabled) mesh.receiveShadow = true;
 
         // Add labels to every obstacle, immediately displayed if enabled
-        addLabel(OBSTACLE_PREFIX, { id: obstacle.id, name: name_temp }, mesh, Config.labelsVisibility.obstacles);
+        addLabel(
+            OBSTACLE_PREFIX,
+            { id: obstacle.id, name: name_temp },
+            mesh,
+            Config.labelsVisibility.obstacles
+        );
 
         console.log('Created>', mesh.name);
     }
@@ -119,7 +127,13 @@ export default class Obstacle {
         const heightSegments = heightSegments || 2;
         const radialSegments = radialSegments || 16;
 
-        return new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, heightSegments);
+        return new THREE.CylinderGeometry(
+            radiusTop,
+            radiusBottom,
+            height,
+            radialSegments,
+            heightSegments
+        );
     }
 
     createSphereGeometry(radius) {
