@@ -4,7 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // Paths
 const entry = './src/js/app.js';
@@ -147,7 +147,7 @@ module.exports = (env) => {
 
         optimization: {
             minimize: true,
-            minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
+            minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
             runtimeChunk: 'single',
             splitChunks: {
                 cacheGroups: {
