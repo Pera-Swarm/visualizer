@@ -14,15 +14,25 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js 14.x
-              uses: actions/setup-node@v1
+            - name: Checkout repository
+              uses: actions/checkout@v4
               with:
-                  node-version: 14.x
-            - run: npm ci
+                  fetch-depth: 0
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.33.2
+
+            - name: Use Node.js from .nvmrc
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: .nvmrc
+                  cache: pnpm
+
+            - run: pnpm install --frozen-lockfile
 
             - name: Build the repository
-              run: npm run build
+              run: pnpm run build
 
             - name: Deploy to gh-pages
               uses: peaceiris/actions-gh-pages@v3

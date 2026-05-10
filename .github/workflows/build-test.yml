@@ -1,13 +1,12 @@
-name: Code Formatting
-on:
-    push:
-        branches: [main]
+name: Build Test
 
-    # Enables a button on Actions tab
+on:
+    pull_request:
+        branches: [main]
     workflow_dispatch:
 
 jobs:
-    format:
+    build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
@@ -28,12 +27,5 @@ jobs:
 
             - run: pnpm install --frozen-lockfile
 
-            - run: pnpm run format
-
-            - name: Commit changes
-              run: |
-                  git config user.name github-actions
-                  git config user.email github-actions@github.com
-                  git add --all
-                  git commit -m "Automatic Code Formatting" || echo "No changes to commit"
-                  git push
+            - name: Build the repository
+              run: pnpm run build
