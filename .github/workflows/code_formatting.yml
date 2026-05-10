@@ -9,25 +9,28 @@ on:
 jobs:
   format:
     runs-on: ubuntu-latest
-
     steps:
-      - name: checkout
-        uses: actions/checkout@master
-        with:
-          ref: main
+        - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version-file: .nvmrc
+        - name: Setup pnpm
+          uses: pnpm/action-setup@v4
+          with:
+              version: 10.33.2
 
-      - run: pnpm install --frozen-lockfile
+        - name: Use Node.js from .nvmrc
+          uses: actions/setup-node@v4
+          with:
+              node-version-file: .nvmrc
+              cache: pnpm
 
-      - run: pnpm run format
+        - run: pnpm install --frozen-lockfile
 
-      - name: Commit changes
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add --all
-          git commit -m "Automatic Code Formatting" || echo "No changes to commit"
-          git push
+        - run: pnpm run format
+
+        - name: Commit changes
+          run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add --all
+            git commit -m "Automatic Code Formatting" || echo "No changes to commit"
+            git push
