@@ -345,8 +345,9 @@ var BufferGeometryUtils = {
                     morphAttributesToMerge.push(morphAttributes[name][j][i]);
                 }
 
-                var mergedMorphAttribute =
-                    this.mergeBufferAttributes(morphAttributesToMerge);
+                var mergedMorphAttribute = this.mergeBufferAttributes(
+                    morphAttributesToMerge
+                );
 
                 if (!mergedMorphAttribute) {
                     console.error(

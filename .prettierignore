@@ -26,3 +26,5 @@ package.json
 .eslintignore
 .gitignore
 .prettierignore
+
+pnpm-lock.yaml

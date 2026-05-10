@@ -200,8 +200,9 @@ const GLTFLoader = (function () {
                             break;
 
                         case EXTENSIONS.KHR_MATERIALS_CLEARCOAT:
-                            extensions[extensionName] =
-                                new GLTFMaterialsClearcoatExtension();
+                            extensions[
+                                extensionName
+                            ] = new GLTFMaterialsClearcoatExtension();
                             break;
 
                         case EXTENSIONS.KHR_MATERIALS_UNLIT:
@@ -209,16 +210,18 @@ const GLTFLoader = (function () {
                             break;
 
                         case EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS:
-                            extensions[extensionName] =
-                                new GLTFMaterialsPbrSpecularGlossinessExtension();
+                            extensions[
+                                extensionName
+                            ] = new GLTFMaterialsPbrSpecularGlossinessExtension();
                             break;
 
                         case EXTENSIONS.KHR_DRACO_MESH_COMPRESSION:
-                            extensions[extensionName] =
-                                new GLTFDracoMeshCompressionExtension(
-                                    json,
-                                    this.dracoLoader
-                                );
+                            extensions[
+                                extensionName
+                            ] = new GLTFDracoMeshCompressionExtension(
+                                json,
+                                this.dracoLoader
+                            );
                             break;
 
                         case EXTENSIONS.MSFT_TEXTURE_DDS:
@@ -228,13 +231,15 @@ const GLTFLoader = (function () {
                             break;
 
                         case EXTENSIONS.KHR_TEXTURE_TRANSFORM:
-                            extensions[extensionName] =
-                                new GLTFTextureTransformExtension();
+                            extensions[
+                                extensionName
+                            ] = new GLTFTextureTransformExtension();
                             break;
 
                         case EXTENSIONS.KHR_MESH_QUANTIZATION:
-                            extensions[extensionName] =
-                                new GLTFMeshQuantizationExtension();
+                            extensions[
+                                extensionName
+                            ] = new GLTFMeshQuantizationExtension();
                             break;
 
                         default:
@@ -1574,8 +1579,9 @@ const GLTFLoader = (function () {
                     break;
 
                 case 'light':
-                    dependency =
-                        this.extensions[EXTENSIONS.KHR_LIGHTS_PUNCTUAL].loadLight(index);
+                    dependency = this.extensions[
+                        EXTENSIONS.KHR_LIGHTS_PUNCTUAL
+                    ].loadLight(index);
                     break;
 
                 default:
@@ -2254,10 +2260,9 @@ const GLTFLoader = (function () {
             var material;
 
             if (materialType === GLTFMeshStandardSGMaterial) {
-                material =
-                    extensions[
-                        EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS
-                    ].createMaterial(materialParams);
+                material = extensions[
+                    EXTENSIONS.KHR_MATERIALS_PBR_SPECULAR_GLOSSINESS
+                ].createMaterial(materialParams);
             } else {
                 material = new materialType(materialParams);
             }
@@ -2865,19 +2870,20 @@ const GLTFLoader = (function () {
 
                     // Override interpolation with custom factory method.
                     if (sampler.interpolation === 'CUBICSPLINE') {
-                        track.createInterpolant =
-                            function InterpolantFactoryMethodGLTFCubicSpline(result) {
-                                // A CUBICSPLINE keyframe in glTF has three output values for each input value,
-                                // representing inTangent, splineVertex, and outTangent. As a result, track.getValueSize()
-                                // must be divided by three to get the interpolant's sampleSize argument.
+                        track.createInterpolant = function InterpolantFactoryMethodGLTFCubicSpline(
+                            result
+                        ) {
+                            // A CUBICSPLINE keyframe in glTF has three output values for each input value,
+                            // representing inTangent, splineVertex, and outTangent. As a result, track.getValueSize()
+                            // must be divided by three to get the interpolant's sampleSize argument.
 
-                                return new GLTFCubicSplineInterpolant(
-                                    this.times,
-                                    this.values,
-                                    this.getValueSize() / 3,
-                                    result
-                                );
-                            };
+                            return new GLTFCubicSplineInterpolant(
+                                this.times,
+                                this.values,
+                                this.getValueSize() / 3,
+                                result
+                            );
+                        };
 
                         // Mark as CUBICSPLINE. `track.getInterpolation()` doesn't support custom interpolants.
                         track.createInterpolant.isInterpolantFactoryMethodGLTFCubicSpline = true;
